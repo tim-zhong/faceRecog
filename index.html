@@ -1,0 +1,47 @@
+<style>
+</style>
+
+<video id="video" width="640" height="480" autoplay></video>
+<button id="snapButton">Snap Photo</button>
+<canvas id="canvas" width="640" height="480"></canvas>
+<button id="snapButton">analize photo</button>
+<div id="result"></div>
+
+<script src="nano.js"></script>
+<script>
+// Grab elements, create settings, etc.
+var video = document.getElementById('video');
+
+// Get access to the camera!
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia || 1) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        video.src = window.URL.createObjectURL(stream);
+        video.play();
+    });
+} else{
+	console.log("Not working");
+}
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+// Trigger photo take
+// document.getElementById("snapButton").addEventListener("click", function() {
+// 	context.drawImage(video, 0, 0, 640, 480);
+//});
+document.getElementById("snapButton").onclick = function(){
+	context.drawImage(video, 0, 0, 640, 480);
+	var imageURL = convertCanvasToImage(canvas);
+	
+	var data = "img="+imageURL;
+	ajxpgn("result","saveimg.php?x=x","","",data);
+}
+
+// Converts canvas to an image
+function convertCanvasToImage(canvas) {
+	var image = new Image();
+	var image = canvas.toDataURL("faces/png");
+	return image;
+}
+</script>
