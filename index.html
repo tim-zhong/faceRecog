@@ -45,12 +45,14 @@ document.getElementById("snapButton").onclick = function(){
 	ajxpgn("result","saveimg.php?x=x","","",data,function(c){
 		var arr = JSON.parse(c.response);
 		for(var i = 0; i < arr.length; i++){
+			var rect = arr[i].faceRectangle;
+			
 			var recLeft = canvas.width-rect.left-rect.width;
 			var recTop = rect.top;
 			var recWidth = rect.width;
 			var recHeight = rect.height;
+
 			context.beginPath();
-			var rect = arr[i].faceRectangle;
 			context.strokeStyle="#ff0000";
 			context.rect(recLeft, recTop, recWidth, recHeight);
 			context.fillText(i, recLeft+recWidth/2, recTop+recHeight/2);
