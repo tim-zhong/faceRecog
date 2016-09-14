@@ -12,11 +12,11 @@ print $success ? $file : 'Unable to save the file.';
 $tim ="http://www.hubnest.com/images/team/tim.jpg";
 $group = "http://www.businessstudynotes.com/wp-content/uploads/2015/09/Group-and-Team.jpg";
 
-echo "\"http://$_SERVER[HTTP_HOST]";
+echo "http://$_SERVER[HTTP_HOST]/" . $file;
 
 $fields = array(
   //"url" => $file
-    "url" => $group
+    "url" => "http://$_SERVER[HTTP_HOST]/" . $file
 );
 $fields_string = json_encode($fields);
 
