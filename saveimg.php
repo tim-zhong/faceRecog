@@ -12,6 +12,8 @@ print $success ? $file : 'Unable to save the file.';
 $tim ="http://www.hubnest.com/images/team/tim.jpg";
 $group = "http://www.businessstudynotes.com/wp-content/uploads/2015/09/Group-and-Team.jpg";
 
+echo "\"http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]\";";
+
 $fields = array(
   //"url" => $file
     "url" => $group
