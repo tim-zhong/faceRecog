@@ -29,6 +29,8 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia || 1) {
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
+context.beginPath();
+context.lineWidth="1";
 context.translate(canvas.width, 0);
 context.scale(-1, 1);
 
@@ -37,6 +39,7 @@ context.scale(-1, 1);
 // 	context.drawImage(video, 0, 0, 640, 480);
 //});
 document.getElementById("snapButton").onclick = function(){
+	context.clearRect(0, 0, canvas.width, canvas.height);
 	context.drawImage(video, 0, 0, 640, 480);
 	var imageURL = convertCanvasToImage(canvas);
 	
