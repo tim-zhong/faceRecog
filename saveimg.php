@@ -12,7 +12,7 @@ print $success ? $file : 'Unable to save the file.';
 $tim ="http://www.hubnest.com/images/team/tim.jpg";
 $group = "http://www.businessstudynotes.com/wp-content/uploads/2015/09/Group-and-Team.jpg";
 
-echo "url" => "http://timzhong.com/e/faceRecog/" . $file;
+echo "http://timzhong.com/e/faceRecog/" . $file;
 
 $fields = array(
   //"url" => $file
