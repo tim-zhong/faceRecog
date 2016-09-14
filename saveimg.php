@@ -6,17 +6,17 @@ $img = str_replace(' ', '+', $img);
 $data = base64_decode($img);
 $file = UPLOAD_DIR . uniqid() . '.png';
 $success = file_put_contents($file, $data);
-print $success ? $file : 'Unable to save the file.';
+//print $success ? $file : 'Unable to save the file.';
 
 
 $tim ="http://www.hubnest.com/images/team/tim.jpg";
 $group = "http://www.businessstudynotes.com/wp-content/uploads/2015/09/Group-and-Team.jpg";
 
-echo "http://timzhong.com/e/faceRecog/" . $file;
+//echo "http://timzhong.com/e/faceRecog/" . $file;
 
 $fields = array(
-  //"url" => $file
-    "url" => "http://timzhong.com/e/faceRecog/" . $file
+    "url" => $group
+    //"url" => "http://timzhong.com/e/faceRecog/" . $file
 );
 $fields_string = json_encode($fields);
 
@@ -47,6 +47,7 @@ if ($curl_response === false) {
 curl_close($curl);
 $decoded = json_decode($curl_response);
 
-echo "<pre>";
-print_r($decoded);
-echo "</pre>";
+print $curl_response;
+// echo "<pre>";
+// print_r($decoded);
+// echo "</pre>";
