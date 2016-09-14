@@ -31,7 +31,6 @@ var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 context.translate(canvas.width, 0);
 context.scale(-1, 1);
-
 // Trigger photo take
 // document.getElementById("snapButton").addEventListener("click", function() {
 // 	context.drawImage(video, 0, 0, 640, 480);
@@ -45,9 +44,12 @@ document.getElementById("snapButton").onclick = function(){
 	ajxpgn("result","saveimg.php?x=x","","",data,function(c){
 		var arr = JSON.parse(c.response);
 		for(var i = 0; i < arr.length; i++){
+			context.save();
+			context.translate(canvas.width, 0);
+			context.scale(-1, 1);
 			var rect = arr[i].faceRectangle;
 
-			var recLeft = canvas.width-rect.left-rect.width;
+			var recLeft = rect.left;
 			var recTop = rect.top;
 			var recWidth = rect.width;
 			var recHeight = rect.height;
@@ -61,6 +63,7 @@ document.getElementById("snapButton").onclick = function(){
 			context.stroke();
 			console.log(arr[i].faceRectangle);
 			context.closePath();
+			context.restore();
 		}
 	});
 }
