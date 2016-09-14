@@ -45,12 +45,14 @@ document.getElementById("snapButton").onclick = function(){
 	ajxpgn("result","saveimg.php?x=x","","",data,function(c){
 		var arr = JSON.parse(c.response);
 		for(var i = 0; i < arr.length; i++){
+			beginPath();
 			var rect = arr[i].faceRectangle;
 			context.strokeStyle="#ff0000";
 			context.rect(rect.left, rect.top, rect.width, rect.height);
 			console.log(arr.length);
 			context.stroke();
 			console.log(arr[i].faceRectangle);
+			closePath();
 		}
 	});
 }
