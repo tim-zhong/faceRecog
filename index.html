@@ -46,16 +46,17 @@ document.getElementById("snapButton").onclick = function(){
 		var arr = JSON.parse(c.response);
 		for(var i = 0; i < arr.length; i++){
 			var rect = arr[i].faceRectangle;
-			
+
 			var recLeft = canvas.width-rect.left-rect.width;
 			var recTop = rect.top;
 			var recWidth = rect.width;
 			var recHeight = rect.height;
 
 			context.beginPath();
-			context.strokeStyle="#ff0000";
+			context.strokeStyle="#00ff00";
+			ctx.fillStyle="#00ff00";
 			context.rect(recLeft, recTop, recWidth, recHeight);
-			context.fillText(i, recLeft+recWidth/2, recTop+recHeight/2);
+			context.fillText(i, recLeft+10, recTop+10);
 			console.log(arr.length);
 			context.stroke();
 			console.log(arr[i].faceRectangle);
