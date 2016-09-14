@@ -48,7 +48,7 @@ document.getElementById("snapButton").onclick = function(){
 			context.beginPath();
 			var rect = arr[i].faceRectangle;
 			context.strokeStyle="#ff0000";
-			context.rect(rect.left, rect.top, rect.width, rect.height);
+			context.rect(canvas.width-rect.left-rect.width, rect.top, rect.width, rect.height);
 			console.log(arr.length);
 			context.stroke();
 			console.log(arr[i].faceRectangle);
