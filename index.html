@@ -1,5 +1,5 @@
 <style>
-#video, #canvas{
+#video{
     transform: rotateY(180deg);
     -webkit-transform:rotateY(180deg); /* Safari and Chrome */
     -moz-transform:rotateY(180deg); /* Firefox */
@@ -29,6 +29,8 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia || 1) {
 
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
+context.translate(canvas.width, 0);
+context.scale(-1, 1);
 
 // Trigger photo take
 // document.getElementById("snapButton").addEventListener("click", function() {
