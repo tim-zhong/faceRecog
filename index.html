@@ -9,7 +9,7 @@
 <video id="video" width="640" height="480" autoplay></video>
 <button id="snapButton">Snap Photo</button>
 <canvas id="canvas" width="640" height="480"></canvas>
-<div id="result"></div>
+<pre id="result"></pre>
 
 <script src="nano.js"></script>
 <script>
@@ -44,9 +44,7 @@ document.getElementById("snapButton").onclick = function(){
 	ajxpgn("result","saveimg.php?x=x","","",data,function(c){
 		var arr = JSON.parse(c.response);
 		for(var i = 0; i < arr.length; i++){
-			context.save();
-			context.translate(canvas.width, 0);
-			context.scale(-1, 1);
+			console.log(arr[i]);
 			var rect = arr[i].faceRectangle;
 
 			var recLeft = rect.left;
@@ -54,15 +52,18 @@ document.getElementById("snapButton").onclick = function(){
 			var recWidth = rect.width;
 			var recHeight = rect.height;
 
+			context.save();
+
+			context.translate(canvas.width, 0);
+			context.scale(-1, 1);
 			context.beginPath();
 			context.strokeStyle="#00ff00";
 			context.fillStyle="#00ff00";
 			context.rect(recLeft, recTop, recWidth, recHeight);
 			context.fillText(i, recLeft+10, recTop+10);
-			console.log(arr.length);
 			context.stroke();
-			console.log(arr[i].faceRectangle);
 			context.closePath();
+
 			context.restore();
 		}
 	});
