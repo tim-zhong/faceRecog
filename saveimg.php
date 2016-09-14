@@ -15,8 +15,8 @@ $group = "http://www.businessstudynotes.com/wp-content/uploads/2015/09/Group-and
 //echo "http://timzhong.com/e/faceRecog/" . $file;
 
 $fields = array(
-    "url" => $group
-    //"url" => "http://timzhong.com/e/faceRecog/" . $file
+    //"url" => $group
+    "url" => "http://timzhong.com/e/faceRecog/" . $file
 );
 $fields_string = json_encode($fields);
 
