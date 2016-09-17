@@ -46,7 +46,7 @@ context.scale(-1, 1);
 //});
 document.getElementById("snapButton").onclick = function(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
-	context.drawImage(video, 0, 0, 640, 480);
+	context.drawImage(video, 0, 0, WIDTH, HEIGHT);
 	var imageURL = convertCanvasToImage(canvas);
 	
 	var data = "img="+imageURL;
