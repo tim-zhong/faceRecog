@@ -5,6 +5,10 @@
     -moz-transform:rotateY(180deg); /* Firefox */
 }
 </style>
+<script>
+var WIDTH = window.innerWidth / 2;
+var HEIGHT = 480;
+</script>
 
 <video id="video" width="640" height="480" autoplay></video>
 <button id="snapButton">Snap Photo</button>
@@ -15,7 +19,8 @@
 <script>
 // Grab elements, create settings, etc.
 var video = document.getElementById('video');
-
+video.width = WIDTH;
+video.height = HEIGHT;
 // Get access to the camera!
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia || 1) {
     // Not adding `{ audio: true }` since we only want video now
