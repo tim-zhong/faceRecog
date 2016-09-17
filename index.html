@@ -21,6 +21,11 @@ var HEIGHT = 480;
 var video = document.getElementById('video');
 video.width = WIDTH;
 video.height = HEIGHT;
+
+var canvas = document.getElementById('canvas');
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+
 // Get access to the camera!
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia || 1) {
     // Not adding `{ audio: true }` since we only want video now
@@ -32,7 +37,6 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia || 1) {
 	console.log("Not working");
 }
 
-var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 context.translate(canvas.width, 0);
 context.scale(-1, 1);
