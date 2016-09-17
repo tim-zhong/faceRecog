@@ -7,7 +7,7 @@
 </style>
 <script>
 var WIDTH = window.innerWidth / 2;
-var HEIGHT = 480;
+var HEIGHT = WIDTH*(640/480);
 </script>
 
 <video id="video" width="640" height="480" autoplay></video>
@@ -46,7 +46,7 @@ context.scale(-1, 1);
 //});
 document.getElementById("snapButton").onclick = function(){
 	context.clearRect(0, 0, canvas.width, canvas.height);
-	context.drawImage(video, 0, 0, WIDTH, HEIGHT);
+	context.drawImage(video, 0, 0, 640, 480);
 	var imageURL = convertCanvasToImage(canvas);
 	
 	var data = "img="+imageURL;
