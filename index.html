@@ -1,19 +1,57 @@
 <style>
+body{
+	margin:0;
+	font-family: sans-serif;
+	color:#555555;
+}
 #video{
     transform: rotateY(180deg);
     -webkit-transform:rotateY(180deg); /* Safari and Chrome */
     -moz-transform:rotateY(180deg); /* Firefox */
 }
+#canvas{
+	position: absolute;
+	top:0;
+}
+.result{
+	padding: 10px;
+	margin:5px;
+	width:300px;
+	display: inline-block;
+	margin:;
+	border:1px solid #dedede;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+#snapButton{
+	border:1px solid #dedede;
+	border-radius: 5px;
+	padding:5px 10px;
+	margin:20px;
+	display: inline-block;
+}
+#snapButton:hover{
+	background: #dedede;
+	cursor:pointer;
+}
+#ajx_result{
+	display: none;
+}
 </style>
-<script>
-var WIDTH = window.innerWidth / 2;
-var HEIGHT = WIDTH*(480/640);
-</script>
 
-<video id="video" width="640" height="480" autoplay></video>
-<button id="snapButton">Snap Photo</button>
-<canvas id="canvas" width="640" height="480"></canvas>
-<pre id="result"></pre>
+<script>
+	var ratio = 640 / 480;
+	var WIDTH = window.innerWidth / 2;
+	var HEIGHT = WIDTH / ratio;
+</script>
+<div id="media_container">
+	<video id="video" width="640" height="480" autoplay></video>
+	<canvas id="canvas" width="640" height="480"></canvas>
+</div>
+<a id="snapButton">Snap Photo</a>
+<div id="result_container">
+</div>
+<pre id="ajx_result"></pre>
 
 <script src="nano.js"></script>
 <script>
@@ -21,11 +59,6 @@ var HEIGHT = WIDTH*(480/640);
 var video = document.getElementById('video');
 video.width = WIDTH;
 video.height = HEIGHT;
-
-var canvas = document.getElementById('canvas');
-canvas.width = WIDTH;
-canvas.height = HEIGHT;
-
 // Get access to the camera!
 if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia || 1) {
     // Not adding `{ audio: true }` since we only want video now
@@ -37,7 +70,11 @@ if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia || 1) {
 	console.log("Not working");
 }
 
+var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+canvas.style.left = WIDTH + "px";
 context.translate(canvas.width, 0);
 context.scale(-1, 1);
 // Trigger photo take
@@ -50,11 +87,12 @@ document.getElementById("snapButton").onclick = function(){
 	var imageURL = convertCanvasToImage(canvas);
 	
 	var data = "img="+imageURL;
-	ajxpgn("result","saveimg.php?x=x","","",data,function(c){
+	ajxpgn("ajx_result","saveimg.php?x=x","","",data,function(c){
 		var arr = JSON.parse(c.response);
 		for(var i = 0; i < arr.length; i++){
-			console.log(arr[i]);
-			var rect = arr[i].faceRectangle;
+			var face = arr[i];
+			console.log(face);
+			var rect = face.faceRectangle;
 
 			var recLeft = rect.left;
 			var recTop = rect.top;
@@ -74,6 +112,41 @@ document.getElementById("snapButton").onclick = function(){
 			context.closePath();
 
 			context.restore();
+
+			var resultContainer = document.getElementById("result_container");
+
+			var resultDiv = document.createElement('div');
+			resultDiv.className = "result";
+			
+			var idDiv = document.createElement("div");
+			idDiv.className = "result_id";
+			idDiv.innerHTML = "Person " + i;
+			resultDiv.appendChild(idDiv);
+
+			var fieldDiv = document.createElement("div");
+			fieldDiv.innerHTML = "Gender: " + face.faceAttributes.gender;
+			resultDiv.appendChild(fieldDiv);
+			
+			var fieldDiv = document.createElement("div");
+			fieldDiv.innerHTML = "Smile: " + face.faceAttributes.smile;
+			resultDiv.appendChild(fieldDiv);
+			
+			var fieldDiv = document.createElement("div");
+			fieldDiv.innerHTML = "Age: " + face.faceAttributes.age;
+			resultDiv.appendChild(fieldDiv);
+
+			var fieldDiv = document.createElement("div");
+			fieldDiv.innerHTML = "Beard: " + face.faceAttributes.facialHair.beard;
+			resultDiv.appendChild(fieldDiv);
+			var fieldDiv = document.createElement("div");
+			fieldDiv.innerHTML = "Moustache: " + face.faceAttributes.facialHair.moustache;
+			resultDiv.appendChild(fieldDiv);
+
+			var fieldDiv = document.createElement("div");
+			fieldDiv.innerHTML = "Glasses: " + face.faceAttributes.glasses;
+			resultDiv.appendChild(fieldDiv);
+
+			resultContainer.appendChild(resultDiv);
 		}
 	});
 }
