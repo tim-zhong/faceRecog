@@ -114,6 +114,7 @@ document.getElementById("snapButton").onclick = function(){
 			context.restore();
 
 			var resultContainer = document.getElementById("result_container");
+			resultContainer.innerHTML = "";
 
 			var resultDiv = document.createElement('div');
 			resultDiv.className = "result";
