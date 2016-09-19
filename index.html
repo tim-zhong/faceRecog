@@ -87,6 +87,7 @@ document.getElementById("snapButton").onclick = function(){
 	var imageURL = convertCanvasToImage(canvas);
 	
 	var data = "img="+imageURL;
+	resultContainer.innerHTML = "";
 	ajxpgn("ajx_result","saveimg.php?x=x","","",data,function(c){
 		var arr = JSON.parse(c.response);
 		for(var i = 0; i < arr.length; i++){
@@ -114,7 +115,6 @@ document.getElementById("snapButton").onclick = function(){
 			context.restore();
 
 			var resultContainer = document.getElementById("result_container");
-			resultContainer.innerHTML = "";
 
 			var resultDiv = document.createElement('div');
 			resultDiv.className = "result";
